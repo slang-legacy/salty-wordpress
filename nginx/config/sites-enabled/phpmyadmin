@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    server_name phpmyadmin.*;
+    root /usr/share/phpmyadmin;
+    client_max_body_size 100M;
+
+    location / {
+        index index.php;
+    }
+
+    location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|xml)$ {
+        access_log off;
+        expires 30d;
+    }
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    location ~ \.php$ {
+           fastcgi_split_path_info ^(.+\.php)(/.+)$;
+           fastcgi_pass 127.0.0.1:9000;
+           #fastcgi_pass unix:/var/run/php5-fpm.sock;
+           fastcgi_index index.php;
+           include fastcgi_params;
+    }
+
+    # Disable viewing .htaccess & .htpassword
+    location ~ /\.ht(access|password) {
+        deny  all;
+    }
+}
