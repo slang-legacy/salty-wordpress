@@ -9,6 +9,8 @@ You can add all your ssh keys to `ssh/keys`, and then reference them in `ssh/ini
 
 The default username is `slang`, and the password is `core2062` (changing the username is kinda hard, but the password can be changed in `users/init.sls`). However, you need to use ssh keys to actually access it because it's configured to deny password based authentication.
 
+Oh, and this installs phpmyadmin too.
+
 setup script:
 ```bash
 echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
