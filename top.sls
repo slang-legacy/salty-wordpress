@@ -38,7 +38,6 @@ base:
     - ssh
     - php5
     - wordpress
-    - piwik
     - salt
     - swap
     - misc
