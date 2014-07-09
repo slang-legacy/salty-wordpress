@@ -13,14 +13,10 @@ Oh, and this installs phpmyadmin too.
 
 setup script:
 ```bash
-echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install salt-minion git
-sudo mkdir /srv/salt
-cd /srv/salt
-git clone https://github.com/slang800/salty-wordpress.git ./
-sudo salt-call --local state.highstate -l debug
+sudo apt-get install git
+git clone https://github.com/slang800/salty-wordpress.git /srv
+sudo sh /srv/setup.sh
+sudo salt-call --local state.highstate
 ```
 
 then just wait for it to run... it takes awhile

@@ -16,12 +16,5 @@ ssh:
     - user: root
     - group: root
 
-# add ssh keys
-slang_ssh:
-  ssh_auth:
-    - present
-    - user: slang
-    - enc: ssh-rsa
-    - source: salt://ssh/keys/slang.id_rsa.pub
-    - require:
-      - user: slang
+include:
+  - ssh.keys

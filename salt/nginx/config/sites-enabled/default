@@ -1,0 +1,38 @@
+server {
+  listen 80;
+  server_name _;
+  root /var/www/wordpress;
+  client_max_body_size 4G;
+  index index.php index.html index.htm;
+
+  # all the content should be cached by the browser... file names must be
+    # changed if files are modified
+  location ~* ^/wp-content/uploads {
+    expires 1y;
+  }
+
+  # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+  location ~ \.php$ {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass 127.0.0.1:9000;
+    #fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+
+    # caching isn't setup
+    #fastcgi_cache MAIN;
+    #fastcgi_cache_key "$scheme$request_method$host$request_uri";
+    #fastcgi_cache_valid 200 301 302 1y; # 200, 301 and 302 will be cached.
+
+    # Fallback to stale cache on certain errors.
+    # 503 is deliberately missing, if we're down for maintenance
+    # we want the page to display.
+    #fastcgi_cache_use_stale error timeout invalid_header http_500 http_502 http_504 http_404;
+  }
+
+  location / {
+    # First attempt to serve request as file, then
+    # as directory, then fall back to index
+    try_files $uri $uri/ /index.php;
+  }
+}

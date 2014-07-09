@@ -1,17 +1,3 @@
-{# this is the default domain. any requests for other domain names that aren't
-  in `domain_names` will be redirected to `default_domain_name`. also any
-  requests for subdomains that are not caught by phpmyadmin, piwik, or
-  `default_domain_name`, get redirected to `default_domain_name`. #}
-
-{% set default_domain_name = 'example.com' %}
-
-{# this server should respond to all domains in `domain_names` (a whitespace
-  delimited list). localhost and a regex to match IP addresses are needed in
-  development because `default_domain_name` is probably pointed at the
-  production server #}
-
-{% set domain_names = '\"~^(?:example\.com|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$\"' %}
-
 {% set mysql_password = 'Cdgb4JLsZhUTaxRzwRZKN7tYqbYpMn5YuEE7gsLCatAL8ftApW' %}
 
 {# Wordpress Auth Salts: Change these to different unique phrases! You can
@@ -34,10 +20,9 @@ base:
   '*':
     - apt.unattended
     - nginx
-    - users
-    - ssh
     - php5
-    - wordpress
-    - salt
+    - ssh
     - swap
+    - users
+    - wordpress
     - misc
